@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LabelPress – Label Maker for Jars, Boxes &amp; Gift Tags</title>
+  <meta name="description" content="Make pretty labels for pantry jars, spices, storage boxes and gift tags and print them on Avery label sheets. Works offline, no subscription.">
+  <meta name="theme-color" content="#0e7490">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><img src="icon-192.png" alt="" width="30" height="30"><span>LabelPress</span></div>
+    <span class="spacer"></span>
+    <div class="top-btns">
+      <select id="exampleSel" class="tb" aria-label="Start from an example">
+        <option value="">✨ Start from an example…</option>
+        <option value="pantry">Pantry jars</option>
+        <option value="spices">Spice jars</option>
+        <option value="boxes">Storage boxes</option>
+        <option value="gifts">Christmas gift tags</option>
+      </select>
+      <button id="printBtn" class="tb primary-tb" title="Print (Ctrl+P)">🖨 Print labels</button>
+      <button id="moreBtn" class="tb">☰ More</button>
+      <button id="proBtn" class="pro-btn" hidden>★ Get Pro</button>
+    </div>
+    <div id="menu" class="menu" hidden>
+      <button id="testBtn">📏 Print a test sheet (outlines on plain paper)</button>
+      <button id="saveBtn">💾 Save my labels (file) <small>Ctrl+S</small></button>
+      <button id="openBtn">📂 Open saved labels…</button>
+      <hr>
+      <a href="help.html" target="_blank" rel="noopener">❓ How to use LabelPress</a>
+      <a href="mailto:thequan03072002@gmail.com?subject=LabelPress%20feedback">✉ Feedback &amp; support</a>
+      <a href="https://apps.microsoft.com/detail/9NDCRGD5QFJ4" target="_blank" rel="noopener">More apps: RecipePress family cookbook maker</a>
+      <a href="https://apps.microsoft.com/detail/9MWSF3JMP1GJ" target="_blank" rel="noopener">More apps: PrintCal photo calendar maker</a>
+    </div>
+    <input id="openIn" type="file" accept=".json,application/json" hidden>
+  </header>
+
+  <main class="layout">
+    <aside class="left">
+      <section class="tool">
+        <h2>✏️ Words on the labels</h2>
+        <textarea id="text" rows="10" spellcheck="true" placeholder="One label per line, for example:&#10;Flour&#10;Sugar | Brown&#10;Coffee | Ground"></textarea>
+        <p class="hint">One line = one label. Add <b>|</b> for a small second line: <code>Rice | Jasmine</code></p>
+        <div class="row">
+          <label class="field inline">Copies of each <input id="copies" type="number" min="1" max="500" step="1"></label>
+          <button id="clearBtn" class="ghost small" type="button">Clear</button>
+        </div>
+        <label class="check"><input id="upper" type="checkbox"> CAPITAL LETTERS</label>
+      </section>
+      <section class="tool">
+        <h2>🏷 Label sheet</h2>
+        <label class="field">Labels you print on<select id="sheetSel"></select></label>
+        <div id="customBox" class="custom" hidden>
+          <label class="field">Paper<select id="c_paper"><option value="letter">US Letter</option><option value="a4">A4</option></select></label>
+          <label class="field">Shape<select id="c_shape"><option value="rect">Rectangle</option><option value="round">Round</option></select></label>
+          <label class="field">Width (in)<input id="c_w" type="number" step="0.01"></label>
+          <label class="field">Height (in)<input id="c_h" type="number" step="0.01"></label>
+          <label class="field">Across<input id="c_cols" type="number" step="1"></label>
+          <label class="field">Down<input id="c_rows" type="number" step="1"></label>
+          <label class="field">Top margin (in)<input id="c_top" type="number" step="0.01"></label>
+          <label class="field">Left margin (in)<input id="c_left" type="number" step="0.01"></label>
+          <label class="field">Step across (in)<input id="c_hp" type="number" step="0.01"></label>
+          <label class="field">Step down (in)<input id="c_vp" type="number" step="0.01"></label>
+          <label class="field">Corner (in)<input id="c_r" type="number" step="0.01"></label>
+        </div>
+        <label class="field">Start at label <span class="muted">(skip labels you used already – or click a label on the sheet)</span><select id="startSel"></select></label>
+      </section>
+      <section class="tool">
+        <h2>🎨 Look</h2>
+        <label class="field">Design<select id="designSel"></select></label>
+        <label class="field">Letters<select id="fontSel"></select></label>
+        <div class="field">Picture<div id="icons" class="icons"></div></div>
+        <div class="two">
+          <label class="field">Colour<input id="accent" type="color"></label>
+          <label class="field">Text<input id="ink" type="color"></label>
+        </div>
+      </section>
+      <details class="tool fine">
+        <summary>📏 Fine-tune the print position</summary>
+        <p class="hint">Labels a little off on the sheet? Print a test sheet (☰ More), then move everything in millimetres.</p>
+        <div class="two">
+          <label class="field">Right / left (mm)<input id="dx" type="number" min="-10" max="10" step="0.5"></label>
+          <label class="field">Down / up (mm)<input id="dy" type="number" min="-10" max="10" step="0.5"></label>
+        </div>
+        <button id="resetPos" class="ghost small" type="button">Back to 0</button>
+      </details>
+      <p id="setHint" class="hint warn"></p>
+      <p class="promise">🔒 Works on this PC, offline – nothing is uploaded.<br>💳 Pay once for Pro – no subscription.</p>
+      <p class="fb-note">💬 Something not working the way you want? Tell me – <a href="mailto:thequan03072002@gmail.com?subject=LabelPress%20feedback">thequan03072002@gmail.com</a>. I read every message and improve the app.</p>
+    </aside>
+
+    <section class="stage">
+      <div class="stagebar">
+        <span class="nav"><button id="prevBtn" title="Previous sheet">‹</button><span id="pageLine"></span><button id="nextBtn" title="Next sheet">›</button></span>
+        <span id="countLine" class="muted"></span>
+        <label class="check small-check"><input id="outline" type="checkbox"> Show label outlines</label>
+      </div>
+      <div id="preview" class="preview"></div>
+    </section>
+  </main>
+
+  <dialog id="proDialog" class="dlg">
+    <h2>LabelPress Pro</h2>
+    <p class="muted">One-time purchase. Yours forever on this Microsoft account. No subscription, ever.</p>
+    <ul class="pro-list">
+      <li><strong>Print all sheets at once</strong> – the free version prints one sheet at a time</li>
+      <li><strong>5 more designs</strong> – Farmhouse kraft, Chalkboard, Botanical, Christmas and Kids</li>
+      <li><strong>12 more pictures</strong> – heart, wheat, cup, apple, spice, cookie, box, gift, snowflake, tree, paw…</li>
+      <li><strong>Any label size</strong> – type in the measurements of any label sheet</li>
+    </ul>
+    <p class="fb-note">💬 Something not working the way you want? Tell me – <a href="mailto:thequan03072002@gmail.com?subject=LabelPress%20feedback">thequan03072002@gmail.com</a>. I read every message and improve the app.</p>
+    <p id="proMsg" class="pro-msg" hidden></p>
+    <div class="row-btns">
+      <button id="buyBtn" class="primary" autofocus>Unlock Pro</button>
+      <button id="restoreBtn" class="ghost">Restore purchase</button>
+      <button id="closePro" class="ghost">Not now</button>
+    </div>
+  </dialog>
+  <div id="toast" class="toast" hidden></div>
+  <div id="restartBar" class="restart" hidden>A new version of LabelPress is ready. <button id="restartBtn" class="primary">Restart now</button></div>
+  <div id="printArea"></div>
+  <script src="app.js"></script>
+</body>
+</html>

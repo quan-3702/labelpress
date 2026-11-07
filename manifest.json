@@ -1,0 +1,16 @@
+{
+  "name": "LabelPress - Label Maker for Jars, Boxes & Gift Tags",
+  "short_name": "LabelPress",
+  "description": "Make pretty labels for pantry jars, spices, storage boxes and gift tags and print them on Avery label sheets – works offline.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0e7490",
+  "theme_color": "#0e7490",
+  "categories": ["productivity", "lifestyle", "utilities"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
